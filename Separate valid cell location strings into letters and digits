@@ -1,0 +1,122 @@
+Sub Separate()
+
+Dim cellname As String, count As Integer, length As Integer, UpperNum As Integer, DigitNum As Integer
+
+cellname = InputBox("Please enter your cellname with the form of Uppercase + digit")
+
+length = Len(cellname)
+
+' See if the length of the cell is smaller than 2
+
+If length < 2 Then
+    MsgBox "You should enter more than 1 character to represent a cell in the worksheet"
+    End
+End If
+
+' See if the lengeth of the cell is larger than 10
+
+If length > 10 Then
+    MsgBox "What you enter is out of the range of the worksheet, please reenter"
+    End
+End If
+
+' See if the first character is not an Uppercase letter
+
+If (Asc(Left(cellname, 1)) < 65) Or (Asc(Left(cellname, 1)) > 90) Then
+    MsgBox "Your first Character of the cell is not an Uppercase letter"
+    End
+End If
+
+' See if the inputs are all Uppercase or digit
+
+count = 1
+
+Do While count <= length
+    If Asc(Mid(cellname, count, 1)) < 48 Or Asc(Mid(cellname, count, 1)) > 90 Then
+        MsgBox "What you enter for the NO. " & count & " character is not an Uppercase letter or digit"
+        End
+    Else
+        If Asc(Mid(cellname, count, 1)) > 57 And Asc(Mid(cellname, count, 1)) < 65 Then
+            MsgBox "What you enter for the NO. " & count & " character is not an Uppercase letter or digit"
+            End
+        Else
+            count = count + 1
+        End If
+    End If
+Loop
+
+' See if the inputs satisfy the form "Uppercase letter + number"
+
+count = 1
+
+Do While count <= length
+    If count <> length Then
+        If Asc(Mid(cellname, count, 1)) >= 65 And Asc(Mid(cellname, count, 1)) <= 90 Then
+            If (Asc(Mid(cellname, count, 1)) >= 65 And Asc(Mid(cellname, count, 1)) <= 90) And (Asc(Mid(cellname, count + 1, 1)) >= 65 And Asc(Mid(cellname, count + 1, 1)) <= 90) Then
+                count = count + 1
+            Else
+                If Asc(Mid(cellname, count + 1, 1)) = 48 Then
+                    MsgBox "The first character after the Uppercase should not be 0, please reenter"
+                    End
+                Else
+                    count = count + 1
+                End If
+            End If
+        Else
+            If (Asc(Mid(cellname, count, 1)) >= 48 And Asc(Mid(cellname, count, 1)) <= 57) And (Asc(Mid(cellname, count + 1, 1)) >= 48 And Asc(Mid(cellname, count + 1, 1)) <= 57) Then
+                count = count + 1
+            Else
+                MsgBox "You should not put Uppercase letter after the digit"
+                End
+            End If
+        End If
+    Else
+        Exit Do
+    End If
+Loop
+
+' See if the Uppercase is larger than three and Digit number is larger than seven
+
+count = 1
+UpperNum = 1
+DigitNum = 1
+
+Do While count <= length
+    If count <> length Then
+        If Asc(Mid(cellname, count, 1)) >= 65 And Asc(Mid(cellname, count, 1)) <= 90 Then
+            If (Asc(Mid(cellname, count, 1)) >= 65 And Asc(Mid(cellname, count, 1)) <= 90) And (Asc(Mid(cellname, count + 1, 1)) >= 65 And Asc(Mid(cellname, count + 1, 1)) <= 90) Then
+                UpperNum = UpperNum + 1
+                If UpperNum > 3 Then
+                    MsgBox "You should not enter more than three Uppercase letter"
+                    End
+                Else
+                    count = count + 1
+                End If
+            Else
+                count = count + 1
+            End If
+        Else
+            If (Asc(Mid(cellname, count, 1)) >= 48 And Asc(Mid(cellname, count, 1)) <= 57) And (Asc(Mid(cellname, count + 1, 1)) >= 48 And Asc(Mid(cellname, count + 1, 1)) <= 57) Then
+                DigitNum = DigitNum + 1
+                If DigitNum > 7 Then
+                    MsgBox "You should not enter more than seven Digit number"
+                    End
+                Else
+                    count = count + 1
+                End If
+            Else
+                count = count + 1
+            End If
+        End If
+    Else
+        Exit Do
+    End If
+Loop
+
+' Output the Uppercase and digit numbers
+
+MsgBox "The Uppercase characters are: " & Left(cellname, UpperNum)
+MsgBox "The digit numbers are: " & Right(cellname, DigitNum)
+
+
+End Sub
